@@ -7,7 +7,7 @@ use Hexlet\Validator\Validator;
 
 class ValidatorTest extends TestCase
 {
-    public function testGetSchema()
+    public function testGetSchema(): void
     {
         $v = new Validator();
 
@@ -16,7 +16,7 @@ class ValidatorTest extends TestCase
         $this->assertNotSame($schema, $schema2);
     }
 
-    public function testRequired()
+    public function testRequired(): void
     {
         $v = new Validator();
 
@@ -35,7 +35,7 @@ class ValidatorTest extends TestCase
         $this->assertFalse($schema->isValid(''));
     }
 
-    public function testContains()
+    public function testContains(): void
     {
         $v = new Validator();
 
@@ -47,7 +47,7 @@ class ValidatorTest extends TestCase
         $this->assertFalse($res2);
     }
 
-    public function testMinLength()
+    public function testMinLength(): void
     {
         $v = new Validator();
 

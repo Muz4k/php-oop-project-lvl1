@@ -56,6 +56,10 @@ class StringCheck
 
     private function checkMinLength(?string $string): bool
     {
-        return strlen($string) >= $this->minLength;
+        if ($string) {
+            return strlen($string) >= $this->minLength;
+        }
+
+        return true;
     }
 }
