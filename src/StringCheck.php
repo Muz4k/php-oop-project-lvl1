@@ -10,17 +10,28 @@ class StringCheck
 
     public function isValid(?string $string): bool
     {
-        return $this->checkRequire($string) && $this->checkContains($string);
+        return $this->checkRequire($string)
+            && $this->checkContains($string)
+            && $this->checkMinLength($string);
     }
 
-    public function required()
+    public function required(): self
     {
         $this->isRequire = true;
+
+        return $this;
     }
 
-    public function contains(string $string)
+    public function contains(string $string): self
     {
         $this->contains = $string;
+
+        return $this;
+    }
+
+    public function minLength(int $int): self
+    {
+        $this->minLength = $int;
 
         return $this;
     }
@@ -41,5 +52,10 @@ class StringCheck
         }
 
         return true;
+    }
+
+    private function checkMinLength(?string $string): bool
+    {
+        return strlen($string) >= $this->minLength;
     }
 }

@@ -46,4 +46,12 @@ class ValidatorTest extends TestCase
         $this->assertTrue($res1);
         $this->assertFalse($res2);
     }
+
+    public function testMinLength()
+    {
+        $v = new Validator();
+
+        $res = $v->string()->minLength(10)->minLength(5)->isValid('Hexlet');
+        $this->assertTrue($res);
+    }
 }
