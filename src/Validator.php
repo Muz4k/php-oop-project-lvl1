@@ -8,4 +8,9 @@ class Validator
     {
         return new StringCheck();
     }
+
+    public function number(): NumberCheck
+    {
+        return new NumberCheck();
+    }
 }
