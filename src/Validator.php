@@ -2,6 +2,7 @@
 
 namespace Hexlet\Validator;
 
+use Closure;
 use Exception;
 
 class Validator
@@ -32,7 +33,7 @@ class Validator
         return new ArrayCheck($customValidationList);
     }
 
-    public function addValidator(string $type, string $name, callable $fn): void
+    public function addValidator(string $type, string $name, Closure $fn): void
     {
         $typeClass = $this->checkList[$type] ?? null;
 
