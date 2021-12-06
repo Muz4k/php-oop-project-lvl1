@@ -6,7 +6,7 @@ use Exception;
 
 class NonExistentCustomValidator
 {
-    public function test($value)
+    public function test($value): Exception
     {
         throw new Exception('Validator not found!');
     }

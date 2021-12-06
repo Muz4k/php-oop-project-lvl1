@@ -50,7 +50,7 @@ class StringCheck
     private function checkRequire(?string $string): bool
     {
         if ($this->isRequire) {
-            return !empty($string);
+            return $string !== null && $string !== '';
         }
 
         return true;
@@ -58,7 +58,7 @@ class StringCheck
 
     private function checkContains(?string $string): bool
     {
-        if ($this->contains) {
+        if ($this->contains !== null) {
             return str_contains($string, $this->contains);
         }
 
@@ -67,7 +67,7 @@ class StringCheck
 
     private function checkMinLength(?string $string): bool
     {
-        if ($string) {
+        if ($string != null) {
             return strlen($string) >= $this->minLength;
         }
 
@@ -86,7 +86,7 @@ class StringCheck
         return true;
     }
 
-    public function test($name, $value)
+    public function test($name, $value): self
     {
         $customValidator = $this->customValidation[$name] ?? new NonExistentCustomValidator();
         $customValidator->test($value);

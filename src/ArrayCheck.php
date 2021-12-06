@@ -99,7 +99,7 @@ class ArrayCheck
         return true;
     }
 
-    public function test($name, $value)
+    public function test($name, $value): self
     {
         $customValidator = $this->customValidation[$name] ?? new NonExistentCustomValidator();
         $customValidator->test($value);

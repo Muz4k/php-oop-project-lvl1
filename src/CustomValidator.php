@@ -2,24 +2,26 @@
 
 namespace Hexlet\Validator;
 
+use Closure;
+
 class CustomValidator
 {
     private string $name;
-    private $fn;
-    private $constraint;
+    private Closure $fn;
+    private mixed $constraint;
 
-    public function __construct(string $name, callable $fn)
+    public function __construct(string $name, Closure $fn)
     {
         $this->name = $name;
         $this->fn = $fn;
     }
 
-    public function test($constraint)
+    public function test(mixed $constraint)
     {
         $this->constraint = $constraint;
     }
 
-    public function isValid($value): bool
+    public function isValid(mixed $value): bool
     {
         return ($this->fn)($value, $this->constraint);
     }
