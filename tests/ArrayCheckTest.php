@@ -19,5 +19,18 @@ class ArrayCheckTest extends TestCase
 
         $this->assertTrue($schema->isValid([]));
         $this->assertFalse($schema->isValid(null));
+        $this->assertTrue($schema->isValid(['hexlet']));
+    }
+
+    public function testSizeOf(): void
+    {
+        $v = new Validator();
+
+        $schema = $v->array();
+
+        $schema->sizeof(2);
+
+        $this->assertFalse($schema->isValid(['hexlet']));
+        $this->assertTrue($schema->isValid(['hexlet', 'code-basics']));
     }
 }
