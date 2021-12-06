@@ -66,5 +66,4 @@ class NumberCheck
 
         return true;
     }
-
 }

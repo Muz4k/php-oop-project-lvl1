@@ -5,7 +5,7 @@ namespace Hexlet\Validator\Tests;
 use Hexlet\Validator\Validator;
 use PHPUnit\Framework\TestCase;
 
-class ArrayCheckTest  extends TestCase
+class ArrayCheckTest extends TestCase
 {
     public function testRequired(): void
     {

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class NumberCheckTest extends TestCase
 {
-    public function testRequired()
+    public function testRequired(): void
     {
         $v = new Validator();
 
@@ -21,7 +21,7 @@ class NumberCheckTest extends TestCase
         $this->assertTrue($schema->isValid(7));
     }
 
-    public function testPositive()
+    public function testPositive(): void
     {
         $v = new Validator();
 
@@ -30,7 +30,7 @@ class NumberCheckTest extends TestCase
         $this->assertTrue($schema->positive()->isValid(10));
     }
 
-    public function testRange()
+    public function testRange(): void
     {
         $v = new Validator();
 

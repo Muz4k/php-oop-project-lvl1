@@ -8,7 +8,7 @@ class ArrayCheck
     private bool $hasCountCheck = false;
     private int $countCheck;
 
-    public function isValid(?array $array)
+    public function isValid(?array $array): bool
     {
         return $this->checkRequired($array) && $this->checkSizeOf($array);
     }
@@ -39,7 +39,10 @@ class ArrayCheck
     private function checkSizeOf(?array $array): bool
     {
         if ($this->hasCountCheck) {
-            return count($array) === $this->countCheck;
+            if (is_array($array)) {
+                return count($array) === $this->countCheck;
+            }
+            return false;
         }
 
         return true;

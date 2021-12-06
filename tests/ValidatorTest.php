@@ -15,6 +15,4 @@ class ValidatorTest extends TestCase
         $schema2 = $v->string();
         $this->assertNotSame($schema, $schema2);
     }
-
-
 }
