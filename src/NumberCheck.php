@@ -62,7 +62,7 @@ class NumberCheck
     private function checkPositive(?int $int): bool
     {
         if ($this->isPositive) {
-            return $int > 0;
+            return $int === null || $int > 0;
         }
 
         return true;

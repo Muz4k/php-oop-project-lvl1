@@ -46,7 +46,7 @@ class ArrayCheckTest extends TestCase
         ]);
 
         $this->assertTrue($schema->isValid(['name' => 'kolya', 'age' => 100]));
-        $this->assertTrue($schema->isValid(['name' => 'maya', 'age' => 10]));
+        $this->assertTrue($schema->isValid(['name' => 'maya', 'age' => null]));
         $this->assertFalse($schema->isValid(['name' => '', 'age' => null]));
         $this->assertFalse($schema->isValid(['name' => 'ada', 'age' => -5]));
     }
