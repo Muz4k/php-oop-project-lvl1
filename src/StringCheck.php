@@ -2,17 +2,28 @@
 
 namespace Hexlet\Validator;
 
+use Exception;
+
 class StringCheck
 {
     private bool $isRequire = false;
     private int $minLength = 0;
     private string $contains = '';
+    private array $customValidation = [];
+    private array $activateCustomValidation = [];
+
+    public function __construct($customValidation = [])
+    {
+        $this->customValidation = $customValidation;
+    }
 
     public function isValid(?string $string): bool
     {
-        return $this->checkRequire($string)
+        return
+            $this->checkRequire($string)
             && $this->checkContains($string)
-            && $this->checkMinLength($string);
+            && $this->checkMinLength($string)
+            && $this->checkCustom($string);
     }
 
     public function required(): self
@@ -61,5 +72,30 @@ class StringCheck
         }
 
         return true;
+    }
+
+    private function checkCustom(?string $string): bool
+    {
+        foreach ($this->activateCustomValidation as $validation) {
+            $result = $validation->isValid($string);
+            if ($result === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function test($name, $value)
+    {
+        $customValidator = $this->customValidation[$name] ?? null;
+        if ($customValidator === null) {
+            throw new Exception('Validator not found!');
+        }
+        $customValidator->test($value);
+
+        $this->activateCustomValidation[] = $customValidator;
+
+        return $this;
     }
 }

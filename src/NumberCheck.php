@@ -2,6 +2,8 @@
 
 namespace Hexlet\Validator;
 
+use Exception;
+
 class NumberCheck
 {
     private bool $isRequire = false;
@@ -9,12 +11,20 @@ class NumberCheck
     private bool $isRange = false;
     private int $minInt;
     private int $maxInt;
+    private array $customValidation = [];
+    private array $activateCustomValidation = [];
+
+    public function __construct($customValidation = [])
+    {
+        $this->customValidation = $customValidation;
+    }
 
     public function isValid(?int $int): bool
     {
         return $this->checkRequire($int)
             && $this->checkPositive($int)
-            && $this->checkRange($int);
+            && $this->checkRange($int)
+            && $this->checkCustom($int);
     }
 
     public function required(): self
@@ -65,5 +75,29 @@ class NumberCheck
         }
 
         return true;
+    }
+    private function checkCustom(?string $string): bool
+    {
+        foreach ($this->activateCustomValidation as $validation) {
+            $result = $validation->isValid($string);
+            if ($result === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function test($name, $value)
+    {
+        $customValidator = $this->customValidation[$name] ?? null;
+        if ($customValidator === null) {
+            throw new Exception('Validator not found!');
+        }
+        $customValidator->test($value);
+
+        $this->activateCustomValidation[] = $customValidator;
+
+        return $this;
     }
 }
