@@ -88,7 +88,7 @@ class NumberCheck
         return true;
     }
 
-    public function test(string $name, int $value)
+    public function test(string $name, int $value): self
     {
         $customValidator = $this->customValidation[$name] ?? new NonExistentCustomValidator();
         $customValidator->test($value);

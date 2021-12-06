@@ -16,9 +16,11 @@ class CustomValidator
         $this->fn = $fn;
     }
 
-    public function test(mixed $constraint)
+    public function test(mixed $constraint): self
     {
         $this->constraint = $constraint;
+
+        return $this;
     }
 
     public function isValid(mixed $value): bool

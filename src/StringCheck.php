@@ -58,7 +58,7 @@ class StringCheck
 
     private function checkContains(?string $string): bool
     {
-        if ($this->contains !== null) {
+        if ($string !== null) {
             return str_contains($string, $this->contains);
         }
 
