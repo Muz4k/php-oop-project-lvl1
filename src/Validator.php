@@ -11,6 +11,7 @@ class Validator
         'number' => NumberCheck::class,
         'array' => ArrayCheck::class
     ];
+
     private array $customValidation;
 
     public function string(): StringCheck
@@ -27,10 +28,11 @@ class Validator
 
     public function array(): ArrayCheck
     {
-        return new ArrayCheck();
+        $customValidationList = $this->customValidation['array'] ?? [];
+        return new ArrayCheck($customValidationList);
     }
 
-    public function addValidator(string $type, string $name, callable $fn)
+    public function addValidator(string $type, string $name, callable $fn): void
     {
         $typeClass = $this->checkList[$type] ?? null;
 

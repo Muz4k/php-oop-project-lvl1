@@ -11,7 +11,7 @@ class CustomValidator
     public function __construct(string $name, callable $fn)
     {
         $this->name = $name;
-        $this->fn[] = $fn;
+        $this->fn = $fn;
     }
 
     public function test($constraint)
@@ -19,8 +19,8 @@ class CustomValidator
         $this->constraint = $constraint;
     }
 
-    public function isValid($value)
+    public function isValid($value): bool
     {
-        return $this->fn[0]($value, $this->constraint);
+        return ($this->fn)($value, $this->constraint);
     }
 }

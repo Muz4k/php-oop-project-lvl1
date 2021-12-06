@@ -76,7 +76,7 @@ class NumberCheck
 
         return true;
     }
-    private function checkCustom(?string $string): bool
+    private function checkCustom(?int $string): bool
     {
         foreach ($this->activateCustomValidation as $validation) {
             $result = $validation->isValid($string);
@@ -90,10 +90,7 @@ class NumberCheck
 
     public function test($name, $value)
     {
-        $customValidator = $this->customValidation[$name] ?? null;
-        if ($customValidator === null) {
-            throw new Exception('Validator not found!');
-        }
+        $customValidator = $this->customValidation[$name] ?? new NonExistentCustomValidator();
         $customValidator->test($value);
 
         $this->activateCustomValidation[] = $customValidator;

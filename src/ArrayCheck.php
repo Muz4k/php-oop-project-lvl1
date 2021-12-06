@@ -9,12 +9,20 @@ class ArrayCheck
     private int $countCheck;
     private bool $hasShapeValidation = false;
     private array $shapeRules;
+    private array $customValidation = [];
+    private array $activateCustomValidation = [];
+
+    public function __construct($customValidation = [])
+    {
+        $this->customValidation = $customValidation;
+    }
 
     public function isValid(?array $array): bool
     {
         return $this->checkRequired($array)
             && $this->checkSizeOf($array)
-            && $this->checkShapeRules($array);
+            && $this->checkShapeRules($array)
+            && $this->checkCustom($array);
     }
 
     public function required(): self
@@ -77,5 +85,27 @@ class ArrayCheck
         }
 
         return true;
+    }
+
+    private function checkCustom(?array $string): bool
+    {
+        foreach ($this->activateCustomValidation as $validation) {
+            $result = $validation->isValid($string);
+            if ($result === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function test($name, $value)
+    {
+        $customValidator = $this->customValidation[$name] ?? new NonExistentCustomValidator();
+        $customValidator->test($value);
+
+        $this->activateCustomValidation[] = $customValidator;
+
+        return $this;
     }
 }

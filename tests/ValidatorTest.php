@@ -36,6 +36,13 @@ class ValidatorTest extends TestCase
         $this->assertFalse($schema->isValid(4)); // false
         $this->assertTrue($schema->isValid(6)); // true
 
+        $fn = fn($value, $constrain) => in_array($constrain, $value);
+        $v->addValidator('array', 'in_array', $fn);
+
+        $schema = $v->array()->test('in_array', 'test');
+
+        $this->assertTrue($schema->isValid(['test']));
+        $this->assertFalse($schema->isValid(['tes2t']));
 
         $this->expectException(Exception::class);
         $v->addValidator('wrong-name', 'startWith', $fn);
