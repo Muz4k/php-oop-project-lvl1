@@ -13,4 +13,9 @@ class Validator
     {
         return new NumberCheck();
     }
+
+    public function array(): ArrayCheck
+    {
+        return new ArrayCheck();
+    }
 }
